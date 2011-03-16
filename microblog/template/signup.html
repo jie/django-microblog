@@ -1,0 +1,16 @@
+{% extends "base_one.html" %}
+
+{% block title %}Create an account{% endblock %}
+
+{% block main %}
+<div id="UserFormWrap">
+  <div id="UserForm">
+  <h1>创建Microblog账户</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p><input class="submit-button button orange" type="submit" value="注册用户"></p>
+  </form>
+  </div>
+</div>
+{% endblock %}

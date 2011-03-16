@@ -1,0 +1,56 @@
+{% extends 'base.html '%}
+{% block menutab %}
+<div class="menutab"><a href="/">广播大厅</a></div>
+<div class="menutab"><a href="/member/">我的主页</a></div>
+<div class="menutab currenttab"><a href="/inbox/">收件箱</a></div>
+<div class="menutab"><a href="/sendbox/">发件箱</a></div>
+{% endblock %}
+{% block main %}
+
+
+<div id="MailBoxWrap">
+	{% for mail in mails.object_list %}
+	<div class="mail-wrap {% cycle odd,even %}">
+		<div class="mail-meta">
+			<div class="mail-sender">
+				<div class="sender-name">
+					<span>来自 : <a href="/member/{{ mail.user.username}}">{{ mail.user.get_profile.nickname }}</a></span>
+				</div>
+				<div class="sender-protrait">
+					<a href="/member/{{ mail.user.username}}">
+						<img class="box-shadow small-protrait" src="{{mail.user.get_profile.gen_protrait}}" width="15" height="15" />
+					</a>
+				</div>
+			</div>
+			<div class="mail-datetime">发送时间 : {{ mail.created|date:"Y-m-d H:i:s"}}</div>
+			<span class="mail-reply-btn"><a href="/mailto/{{mail.user.id}}">回信</a></span>
+			<div class="clearblank"></div>
+		</div>
+		<div class="mail-content-wrap">
+			<div class="mail-content">
+				{{ mail.content}}
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+
+<div class="pagination">
+	<span class="step-links">
+		{% if mails.has_previous %}
+			<span class="prev round-corner-button"><a href="?page={{ mails.previous_page_number }}">PREV</a></span>
+		{% endif %}
+
+		<span class="current round-corner-button">
+			PAGE {{ mails.number }}/{{ mails.paginator.num_pages }}
+		</span>
+
+		{% if mails.has_next %}
+			<span class="next round-corner-button"><a href="?page={{ mails.next_page_number }}">NEXT</a></span>
+		{% endif %}
+	</span>
+</div>
+
+
+{% endblock %}

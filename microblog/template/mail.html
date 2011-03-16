@@ -1,0 +1,29 @@
+{% extends 'base.html '%}
+{% block menutab %}
+<div class="menutab"><a href="/">广播大厅</a></div>
+<div class="menutab"><a href="/member/">我的主页</a></div>
+<div class="menutab currenttab"><a href="#">发件箱</a></div>
+{% endblock %}
+{% block main %}
+<div id="MailTextarea">
+	<div class="mail-sender">
+		<div class="sender-name">
+			<span>发送给 :  <a href="/member/{{ recipient.username}}">{{ recipient.get_profile.nickname}}</a></span>
+		</div>
+		<div class="sender-protrait">
+			<a href="/member/{{ recipient.username}}">
+				<img class="box-shadow small-protrait" src="{{recipient.get_profile.gen_protrait}}" width="15" height="15" />
+			</a>
+		</div>
+	</div>
+
+	<form method="post" action="">
+		<textarea id="MailForm" name="content"></textarea>
+		<div id="MailFormControl">
+			<input type="submit" id="MailButton" class="button orange" />
+			<div class="clearfix"></div>
+		</div>
+		<input type="hidden" name="mailto" value="{{user.id}}" />
+	</form>
+</div>
+{% endblock %}

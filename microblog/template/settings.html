@@ -1,0 +1,37 @@
+{% extends "base_one.html" %}
+
+{% block title %}Login in{% endblock %}
+
+{% block main %}
+<div id="UserFormWrap" >
+  <div id="UserForm">
+  <h1>用户设置</h1>
+   <div id="ProfileBoxOne">
+    <div id="Profile">
+      <div id="ProfilePropraitOne">
+        <div id="UserProprait">
+          {% if user.get_profile.protrait %}<img class="box-shadow" src="{{ user.get_profile.protrait.url }}"/>{% endif %}
+        </div>
+      </div>
+      <div id="ProfileInfoOne">
+        <div class="profile-nickname-one">用户名: {{user.username}}</div>
+        <div class="profile-name-one">昵称: {{ user.get_profile.nickname }}</div>
+        <div class="profile-last-one">上次登录时间: <span>{{ user.last_login|date:"Y-m-d H:i:s" }}</span></div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  <form action="" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	{{ info_form.as_p }}
+	<p><input class="submit-button button orange" type="submit" value="提交"></p>
+  </form>
+  <h1>修改密码</h1>
+  <form method="post" action="">
+  {% csrf_token %}
+  {{password_form.as_p}}
+  <p><input class="submit-button button orange" type="submit" value="修改"></p>
+  </form>
+  </div>
+</div>
+{% endblock %}
