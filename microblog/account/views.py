@@ -1,6 +1,7 @@
 ﻿import time
 import random
 import cgi
+import settings
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm,PasswordChangeForm
 from backend.forms import MyUserSettingsForm, MyUserCreationForm
@@ -14,6 +15,7 @@ from django.utils.encoding import smart_unicode
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.db.models import Q
 from django.contrib.auth import REDIRECT_FIELD_NAME
+
 
 @login_required
 def logout_view(request):
@@ -30,7 +32,7 @@ def login_view(request,redirect_field_name=REDIRECT_FIELD_NAME):
         redirect_to = settings.LOGIN_REDIRECT_URL
       elif '//' in redirect_to and re.match(r'[^\?]*//', redirect_to):
         redirect_to = settings.LOGIN_REDIRECT_URL
-        auth.login(request, form.get_user())
+      auth.login(request, form.get_user())
 
       if request.session.test_cookie_worked():
         request.session.delete_test_cookie()
