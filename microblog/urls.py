@@ -7,19 +7,10 @@ from backend.views import *
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Example:
-    # (r'^microblog/', include('microblog.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    # Uncomment the next line to enable the admin:
     (r'^mail/', include('microblog.mail.urls')),
-    (r'^member/signup/$',  signup_view),
-    (r'^member/login/$', login_view),
-    (r'^member/logout/$', logout_view),
+    (r'^member/', include('microblog.account.urls')),
     (r'^settings/$', settings_view),
-    (r'^member/(\w+)/$', member_view),
-    (r'^member/$', self_view),
     (r'^post/$', post_topic),
     (r'^delete/$', delete_topic),
     (r'^follow/$', follow_member),

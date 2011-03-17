@@ -16,7 +16,7 @@ from django.utils.encoding import smart_unicode
 from urllib2 import unquote
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.db.models import Q
-
+from django.contrib.auth import REDIRECT_FIELD_NAME
 
 @login_required
 def index(request):
@@ -118,78 +118,6 @@ def post_conversation(request):
 
 
 @login_required
-def self_view(request):
-  if request.method == 'GET':
-    try:
-      followed = FollowRelation.objects.filter(user=request.user)[:12]
-      follower = FollowRelation.objects.filter(follower=request.user)[:12]
-    except:
-      followed = 0
-      follower = 0
-    topics_all = Topic.objects.filter(Q(author=request.user)|Q(conversation__author=request.user)).order_by('-created')
-    topics_count = topics_all.count()
-    members = Member.objects.all()
-    paginator = Paginator(topics_all, 10)
-    try:
-      page = int(request.GET.get('page', '1'))
-    except ValueError:
-      page = 1
-    try:
-      topics = paginator.page(page)
-    except (EmptyPage, InvalidPage):
-      topics = paginator.page(paginator.num_pages)
-
-  return render_to_response("self.html", {
-    'user':request.user,
-    'logined':request.user.is_authenticated(),
-    'topics':topics,
-    'members':members,
-    'paginator':paginator,
-    'follower':follower,
-    'followed':followed,
-    'page_type': 'self',
-  })
-
-
-@login_required
-def member_view(request, user_name):
-  if request.method == 'GET':
-    view_user = User.objects.get(username=user_name)
-    my_follower_ship = FollowRelation.objects.filter(user=request.user).filter(follower=view_user)
-    topics_all = Topic.objects.filter(author=view_user).order_by('-created')
-    topics_count = topics_all.count()
-    paginator = Paginator(topics_all, 10)
-    members = Member.objects.all()
-    try:
-      followed = FollowRelation.objects.filter(user=view_user)[:12]
-      follower = FollowRelation.objects.filter(follower=view_user)[:12]
-    except:
-      followed = 0
-      follower = 0
-    try:
-      page = int(request.GET.get('page', '1'))
-    except ValueError:
-      page = 1
-    try:
-      topics = paginator.page(page)
-    except (EmptyPage, InvalidPage):
-      topics = paginator.page(paginator.num_pages)
-  return render_to_response("member.html", {
-    'user':request.user,
-    'logined':request.user.is_authenticated(),
-    'topics':topics,
-    'members':members,
-    'topics_count':topics_count,
-    'view_user':view_user,
-    'nickname':view_user.get_profile().nickname,
-    'is_followed':len(my_follower_ship),
-    'page_type':'member',
-    'follower':follower,
-    'followed':followed,
-  })
-
-
-@login_required
 def settings_view(request):
   try:
     info = Member.objects.get(user=request.user)
@@ -212,40 +140,4 @@ def settings_view(request):
     'logined':request.user.is_authenticated(),
     'info_form':info_form,
     'password_form':password_form,
-  })
-
-
-
-@login_required
-def logout_view(request):
-  auth.logout(request)
-  return HttpResponseRedirect("/")
-
-def login_view(request):
-  if request.method == 'POST':
-    form = AuthenticationForm(data=request.POST)
-    if form.is_valid():
-      auth.login(request, form.get_user())
-      return HttpResponseRedirect("/")
-    else:
-      return HttpResponseRedirect("/member/login/")
-  else:
-    form = AuthenticationForm()
-  return render_to_response("login.html", {
-    'form': form,'user':request.user,'logined':request.user.is_authenticated()
-  })
-
-
-def signup_view(request):
-  if request.method == 'POST':
-    form = MyUserCreationForm(request.POST)
-    if form.is_valid():
-      new_user = form.save()
-      new_user.backend="%s.%s" %('django.contrib.auth.backends','ModelBackend')
-      auth.login(request, new_user)
-      return HttpResponseRedirect("/")
-  else:
-    form = MyUserCreationForm()
-  return render_to_response("signup.html", {
-    'form': form,'user':request.user,'logined':request.user.is_authenticated()
   })
