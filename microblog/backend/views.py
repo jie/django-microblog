@@ -56,7 +56,8 @@ def favorite_view(request):
     'user':request.user,
     'logined':request.user.is_authenticated(),
     'topics':topics,
-    'page_type':'favorite'
+    'page_type':'favorite',
+    'paginator':paginator,
   })
 
 @login_required

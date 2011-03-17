@@ -3,6 +3,7 @@
 <div class="menutab"><a href="/">广播大厅</a></div>
 <div class="menutab"><a href="/member/">我的主页</a></div>
 <div class="menutab currenttab"><a href="/member/{{ view_user.username }}/">{{ view_user.get_profile.nickname }}</a></div>
+<div class="menutab"><a href="/favorite/">收藏夹</a></div>
 {% endblock %}
 {% block main %}
 <div id="TopicWrap">
