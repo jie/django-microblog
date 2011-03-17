@@ -15,7 +15,7 @@ from django.utils.encoding import smart_unicode
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.db.models import Q
 from django.contrib.auth import REDIRECT_FIELD_NAME
-
+from django.template import RequestContext as RC
 
 @login_required
 def logout_view(request):
@@ -42,8 +42,8 @@ def login_view(request,redirect_field_name=REDIRECT_FIELD_NAME):
   else:
     form = AuthenticationForm()
   return render_to_response("login.html", {
-  'form': form,'user':request.user,'logined':request.user.is_authenticated()
-  })
+    'form': form,
+  },context_instance=RC(request))
 
 
 def signup_view(request):
@@ -57,8 +57,8 @@ def signup_view(request):
   else:
     form = MyUserCreationForm()
   return render_to_response("signup.html", {
-  'form': form,'user':request.user,'logined':request.user.is_authenticated()
-  })
+  'form': form,
+  },context_instance=RC(request))
 
 @login_required
 def self_view(request):
@@ -83,15 +83,13 @@ def self_view(request):
       topics = paginator.page(paginator.num_pages)
 
   return render_to_response("self.html", {
-    'user':request.user,
-    'logined':request.user.is_authenticated(),
     'topics':topics,
     'members':members,
     'paginator':paginator,
     'follower':follower,
     'followed':followed,
     'page_type': 'self',
-  })
+  },context_instance=RC(request))
 
 
 @login_required
@@ -118,8 +116,6 @@ def member_view(request, user_name):
     except (EmptyPage, InvalidPage):
       topics = paginator.page(paginator.num_pages)
   return render_to_response("member.html", {
-    'user':request.user,
-    'logined':request.user.is_authenticated(),
     'topics':topics,
     'members':members,
     'topics_count':topics_count,
@@ -129,4 +125,4 @@ def member_view(request, user_name):
     'page_type':'member',
     'follower':follower,
     'followed':followed,
-  })
+  },context_instance=RC(request))

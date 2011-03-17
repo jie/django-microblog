@@ -28,14 +28,12 @@
 		<div class="topic-right">
 			<div class="topic-meta">
 				<span class="topic-datetime">发布于{{ topic.created|timesince }}以前</span>
-				{% if logined %}
 				<span class="topic-control">
 					<ul>
 						<li class="conversation"><button class="topic-reply round-corner-button" value="{{topic.id}}" type="button">回复</button></li>
 						<li class="conversation"><button class="topic-delete round-corner-button" value="{{topic.id}}" type="button">删除</button></li>
 					</ul>
 				</span>
-				{% endif %}
 			</div>
 			<div class="topic-content-wrap">
 				<div class="topic-content">{{ topic.content }}

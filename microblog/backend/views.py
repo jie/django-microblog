@@ -17,6 +17,7 @@ from urllib2 import unquote
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.db.models import Q
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.template import RequestContext as RC
 
 @login_required
 def index(request):
@@ -33,11 +34,10 @@ def index(request):
     topics = paginator.page(paginator.num_pages)
   return render_to_response("index.html", {
     'members':members,
-    'user':request.user,
-    'logined':request.user.is_authenticated(),
     'topics':topics,
     'paginator':paginator,
-    'page_type':'index',})
+    'page_type':'index',
+    },context_instance=RC(request))
 
 @login_required
 def favorite_view(request):
@@ -53,12 +53,10 @@ def favorite_view(request):
     topics = paginator.page(paginator.num_pages)
 
   return render_to_response("favorite.html",{
-    'user':request.user,
-    'logined':request.user.is_authenticated(),
     'topics':topics,
     'page_type':'favorite',
     'paginator':paginator,
-  })
+  },context_instance=RC(request))
 
 @login_required
 def setfav_view(request):
@@ -136,8 +134,6 @@ def settings_view(request):
     info_form = MyUserSettingsForm(instance=info)
     password_form = PasswordChangeForm(request.user,request.GET)
   return render_to_response("settings.html", {
-    'user':request.user,
-    'logined':request.user.is_authenticated(),
     'info_form':info_form,
     'password_form':password_form,
-  })
+  },context_instance=RC(request))

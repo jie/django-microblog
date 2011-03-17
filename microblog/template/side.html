@@ -1,4 +1,3 @@
-{% if logined %}
 {% ifequal page_type 'index' %}
 {% if user.get_profile %}
 <div id="ProfileBox">
@@ -18,9 +17,8 @@
 </div>
 {% endif %}
 {% endifequal %}
-{% endif %}
 
-{% if logined %}
+
 {% ifequal page_type 'self' %}
 {% if user.get_profile %}
 <div id="ProfileBox">
@@ -40,9 +38,9 @@
 </div>
 {% endif %}
 {% endifequal %}
-{% endif %}
 
-{% if logined %}
+
+
 {% ifequal page_type 'member'%}
 <div id="ProfileBox">
 	<div id="Profile">
@@ -66,9 +64,9 @@
 	</div>
 </div>
 {% endifequal %}
-{% endif %}
 
-{% if logined %}
+
+
 {% if followed %}
 <div class="clearblank"></div>
 <div class="member-box-wrap">
@@ -88,10 +86,10 @@
 	</div>
 </div>
 {% endif %}
-{% endif %}
 
 
-{% if logined %}
+
+
 {% if follower %}
 <div class="clearblank"></div>
 <div class="member-box-wrap">
@@ -111,13 +109,10 @@
 	</div>
 </div>
 {% endif %}
-{% endif %}
+
 
 
 {% if members %}
-{% if logined %}
-<div class="clearblank"></div>
-{% endif %}
 <div class="member-box-wrap">
 	<div class="member-box-title">
 		<div class="member-box-text">最近加入的用户</div>

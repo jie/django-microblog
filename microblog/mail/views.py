@@ -4,6 +4,7 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from backend.models import Mail
+from django.template import RequestContext as RC
 
 @login_required
 def mail_view(request,mailto):
@@ -26,9 +27,8 @@ def mail_view(request,mailto):
     pass
   return render_to_response("mail.html", {
     'recipient':recipient,
-    'user':request.user,
-    'logined':request.user.is_authenticated(),
-    'page_type':'mail',})
+    'page_type':'mail',
+    },context_instance=RC(request))
 
 
 @login_required
@@ -51,9 +51,8 @@ def inbox_view(request):
   return render_to_response("inbox.html", {
     'unread_count':request.user.get_profile().unread_count,
     'mails':mails,
-    'user':request.user,
-    'logined':request.user.is_authenticated(),
-    'page_type':'mail',})
+    'page_type':'mail',
+    },context_instance=RC(request))
 
 @login_required
 def sendbox_view(request):
@@ -70,6 +69,5 @@ def sendbox_view(request):
       mails = paginator.page(paginator.num_pages)
   return render_to_response("sendbox.html", {
     'mails':mails,
-    'user':request.user,
-    'logined':request.user.is_authenticated(),
-    'page_type':'mail',})
+    'page_type':'mail',
+    },context_instance=RC(request))
