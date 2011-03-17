@@ -21,8 +21,7 @@ from django.db.models import Q
 @login_required
 def index(request):
   members = Member.objects.all()
-  topics_all = Topic.objects.all().order_by('-created')[:30]
-  topics_count = topics_all.count()
+  topics_all = Topic.objects.all().order_by('-created')
   paginator = Paginator(topics_all, 10)
   try:
     page = int(request.GET.get('page', '1'))
@@ -37,7 +36,7 @@ def index(request):
     'user':request.user,
     'logined':request.user.is_authenticated(),
     'topics':topics,
-    'topics_count':topics_count,
+    'paginator':paginator,
     'page_type':'index',})
 
 @login_required
@@ -148,7 +147,7 @@ def follow_member(request):
   if request.is_ajax():
     try:
       follower = User.objects.get(pk=int(request.raw_post_data))
-      my_follower_ship = FollowRelation.objects.filter(user=request.user).filter(follower=follower)
+      my_follower_ship = FollowRelation.objects.filter(user=request.user, follower=follower)
       if len(my_follower_ship):
         my_follower_ship.delete()
       else:
@@ -223,7 +222,7 @@ def self_view(request):
     'logined':request.user.is_authenticated(),
     'topics':topics,
     'members':members,
-    'topics_count':topics_count,
+    'paginator':paginator,
     'follower':follower,
     'followed':followed,
     'page_type': 'self',
@@ -291,7 +290,7 @@ def settings_view(request):
     'logined':request.user.is_authenticated(),
     'info_form':info_form,
     'password_form':password_form,
-    })
+  })
 
 
 

@@ -5,7 +5,6 @@
 <div class="menutab currenttab"><a href="/member/{{ view_user.username }}/">{{ view_user.get_profile.nickname }}</a></div>
 {% endblock %}
 {% block main %}
-{% ifnotequal topics_count 0 %}
 <div id="TopicWrap">
 	{% for topic in topics.object_list %}
 	<div class="topic-all">
@@ -48,8 +47,13 @@
 		</div>
 		<div class="clearfix"></div>
 	</div>
+	{% empty %}
+	<div class="no-topic">
+		<h4>No topic has been posted yet.</h4>
+	</div>
 	{% endfor %}
 </div>
+{% if paginator.count > paginator.per_page %}
 <div class="pagination">
 	<span class="step-links">
 		{% if topics.has_previous %}
@@ -65,6 +69,5 @@
 		{% endif %}
 	</span>
 </div>
-{% endifnotequal %}
-
+{% endif %}
 {% endblock %}

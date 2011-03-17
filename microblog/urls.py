@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     # (r'^microblog/', include('microblog.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
-    # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
     (r'^mailto/(\d+)/$', mail_view),

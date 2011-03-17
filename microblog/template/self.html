@@ -12,8 +12,8 @@
 	</div>
 </div>
 <div id="TopicWrap">
-{% for topic in topics.object_list %}
-<div class="topic-all {% cycle odd,even %}">
+	{% for topic in topics.object_list %}
+	<div class="topic-all">
 		<div class="topic-left">
 			<div class="topic-author">
 				<div class="topic-author-protrait">
@@ -54,9 +54,14 @@
 		</div>
 		<div class="clearfix"></div>
 	</div>
+	{% empty %}
+	<div class="no-topic">
+		<h4>No topics has been posted yet.</h4>
+	</div>
 	{% endfor %}
 </div>
-{% ifnotequal topics_count 0 %}
+
+{% if paginator.count > paginator.per_page %}
 <div class="pagination">
 	<span class="step-links">
 		{% if topics.has_previous %}
@@ -72,5 +77,5 @@
 		{% endif %}
 	</span>
 </div>
-{% endifnotequal%}
+{% endif %}
 {% endblock %}
