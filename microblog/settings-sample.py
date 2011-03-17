@@ -1,12 +1,8 @@
 # Django settings for microblog project.
 import os
-import platform
 
-if platform.node() == "ubuntu": # FELINX is the name of felinx' EC2 server.
-    DEBUG = False
-else:
-    DEBUG = True
 
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 
@@ -19,28 +15,16 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': 'microblog',                      # Or path to database file if using sqlite3.
-            'USER': 'root',                      # Not used with sqlite3.
-            'PASSWORD': '123456',                  # Not used with sqlite3.
-            'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-            'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': '',                      # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': 'django_microblog',                      # Or path to database file if using sqlite3.
-            'USER': 'django_microblog',                      # Not used with sqlite3.
-            'PASSWORD': '520maggie',                  # Not used with sqlite3.
-            'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-            'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-        }
-    }
+}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
