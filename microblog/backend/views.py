@@ -62,138 +62,59 @@ def favorite_view(request):
 
 @login_required
 def setfav_view(request):
-  if request.method =='POST':
-    topic = Topic.objects.get(pk=int(request.POST['id']))
-    if request.user in topic.favorites.all():
-      topic.favorites.remove(request.user)
-      response = HttpResponse('unfav')
-    else:
-      topic.favorites.add(request.user)
-      response = HttpResponse('fav')
-    return response
-
-@login_required
-def mail_view(request,mailto):
-  try:
-    recipient = User.objects.get(pk=int(mailto))
-  except:
-    raise Http404
-  if request.method=='POST':
-    content = request.POST['content']
-    mail = Mail(user=request.user,recipient=recipient,content=content)
-    mail.save()
-    member = recipient.get_profile()
-    try:
-      member.unread_count = member.unread_count+1
-    except:
-      member.unread_count = 0
-    member.save()
-    return HttpResponseRedirect("/sendbox/")
+  assert(request.method =='POST' and request.is_ajax() == True)
+  topic = Topic.objects.get(pk=int(request.POST['id']))
+  if request.user in topic.favorites.all():
+    topic.favorites.remove(request.user)
+    response = HttpResponse('unfav')
   else:
-    pass
-  return render_to_response("mail.html", {
-    'recipient':recipient,
-    'user':request.user,
-    'logined':request.user.is_authenticated(),
-    'page_type':'mail',})
-
-
-@login_required
-def inbox_view(request):
-  if request.method=='GET':
-    mails_all = Mail.objects.all().filter(recipient=request.user).order_by('-created')
-    member = request.user.get_profile()
-    if member.unread_count !=0:
-      member.unread_count = 0
-      member.save()
-    paginator = Paginator(mails_all, 3)
-    try:
-      page = int(request.GET.get('page', '1'))
-    except ValueError:
-      page = 1
-    try:
-      mails = paginator.page(page)
-    except (EmptyPage, InvalidPage):
-      mails = paginator.page(paginator.num_pages)
-  return render_to_response("inbox.html", {
-    'unread_count':request.user.get_profile().unread_count,
-    'mails':mails,
-    'user':request.user,
-    'logined':request.user.is_authenticated(),
-    'page_type':'mail',})
-
-@login_required
-def sendbox_view(request):
-  if request.method=='GET':
-    mails_all = Mail.objects.all().filter(user=request.user).order_by('-created')
-    paginator = Paginator(mails_all, 3)
-    try:
-      page = int(request.GET.get('page', '1'))
-    except ValueError:
-      page = 1
-    try:
-      mails = paginator.page(page)
-    except (EmptyPage, InvalidPage):
-      mails = paginator.page(paginator.num_pages)
-  return render_to_response("sendbox.html", {
-    'mails':mails,
-    'user':request.user,
-    'logined':request.user.is_authenticated(),
-    'page_type':'mail',})
-
+    topic.favorites.add(request.user)
+    response = HttpResponse('fav')
+  return response
 
 
 @login_required
 def follow_member(request):
-  if request.is_ajax():
-    try:
-      follower = User.objects.get(pk=int(request.raw_post_data))
-      my_follower_ship = FollowRelation.objects.filter(user=request.user, follower=follower)
-      if len(my_follower_ship):
-        my_follower_ship.delete()
-      else:
-        follow_relation = FollowRelation(user=request.user, follower=follower)
-        follow_relation.save()
-      response = HttpResponse('success')
-      return response
-    except:
-      pass
+  assert(request.method=='POST' and request.is_ajax()==True)
+  try:
+    follower = User.objects.get(pk=int(request.raw_post_data))
+    my_follower_ship = FollowRelation.objects.filter(user=request.user, follower=follower)
+    if len(my_follower_ship):
+      my_follower_ship.delete()
+    else:
+      follow_relation = FollowRelation(user=request.user, follower=follower)
+      follow_relation.save()
+    return HttpResponse('success')
+  except:
+    return HttpResponse('fail')
 
 @login_required
 def delete_topic(request):
-  if request.is_ajax():
-    try:
-      topic = Topic.objects.get(pk=int(request.POST['id']))
-      if topic.author == request.user:
-          topic.delete()
-          return HttpResponse('success')
-    except:
-      pass
+  assert(request.method=='POST' and request.is_ajax()==True)
+  topic = Topic.objects.get(pk=int(request.POST['id']))
+  if topic.author == request.user:
+    topic.delete()
+    return HttpResponse('success')
+  else:
+    return HttpResponse('fail')
 
 @login_required
 def post_topic(request):
-  if request.is_ajax():
-    try:
-      content = smart_unicode(request.raw_post_data)
-      topic = Topic(content=content, author=request.user)
-      topic.save()
-      response = HttpResponse(cgi.escape(topic.content))
-      return response
-    except:
-      pass
+  assert(request.method=='POST' and request.is_ajax()==True)
+  content = smart_unicode(request.raw_post_data)
+  topic = Topic(content=content, author=request.user)
+  topic.save()
+  response = HttpResponse(cgi.escape(topic.content))
+  return response
 
 @login_required
 def post_conversation(request):
-  if request.is_ajax():
-    try:
-      related_topic = Topic.objects.get(pk=int(request.POST['id']))
-      topic = Topic(content=request.POST['content'], author=request.user,conversation=related_topic)
-      topic.save()
-      response = HttpResponse(cgi.escape(topic.content))
-      return response
-    except:
-      pass
-
+  assert(request.method=='POST' and request.is_ajax()==True)
+  related_topic = Topic.objects.get(pk=int(request.POST['id']))
+  topic = Topic(content=request.POST['content'], author=request.user,conversation=related_topic)
+  topic.save()
+  response = HttpResponse(cgi.escape(topic.content))
+  return response
 
 
 @login_required

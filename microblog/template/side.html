@@ -54,7 +54,7 @@
 			<button id="FollowBtn" class="button {% ifequal is_followed 0 %}orange{% else %}green{% endifequal%}" type="button" value="{{ view_user.id }}">
 			{% ifequal is_followed 0 %}关注他{% else %}已关注{% endifequal%}
 			</button>
-			<a href="/mailto/{{ view_user.id }}/" id="FollowBtn" class="button red mailtobtn">写邮件</a>
+			<a href="/mail/mailto/{{ view_user.id }}/" id="FollowBtn" class="button red mailtobtn">写邮件</a>
 			</div>
 		</div>
 		<div id="ProfileInfo">
