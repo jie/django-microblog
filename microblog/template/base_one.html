@@ -43,8 +43,11 @@
 					<ul>
 						{% if logined %}
 						<li>Hi <span id="AuthorName">{{user.get_profile.nickname}}</span>欢迎回来</li>
+						<li><a href="/inbox/">{%if user.get_profile.gen_unread_count %}<img src="/static/mail_1.png" width="15" height="15"/>{% else %}<img src="/static/mail_0.png" width="15" height="15"/>{% endif %}</a></li>
+						<li>[<a href="/inbox/"><span {%if user.get_profile.gen_unread_count %}class="color-newmail-counter"{% endif %}>{{ user.get_profile.gen_unread_count }}</span></a>]</li>
+						<li><a href="/favorite/"><img src="/static/favorite.png" width="15" height="15"/></a></li>
 						<li><a href="/favorite/">收藏</a></li>
-						<li><a href="/member/settings/">设置</a></li>
+						<li><a href="/settings/">设置</a></li>
 						<li><a href="/member/logout/">登出</a></li>
 						{% else %}
 						<li><a href="/member/login/">登录</a></li>
