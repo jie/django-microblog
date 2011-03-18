@@ -21,12 +21,14 @@
 		<div class="topic-right">
 			<div class="topic-meta">
 				<span class="topic-datetime">发布于{{ topic.created|timesince }}以前</span>
+				{% if user.is_authenticated %}
 				<span class="topic-control">
 					<ul>
 						<li class="conversation"><button title="收藏" class="favbtn {%if user in topic.get_fav_users %}fav{% else %}unfav{% endif %}" value="{{topic.id}}" type="button"></button></li>
 						<li class="conversation"><button class="topic-reply round-corner-button" value="{{topic.id}}" type="button">回复</button></li>
 					</ul>
 				</span>
+				{% endif %}
 			</div>
 			<div class="topic-content-wrap">
 				<div class="topic-content">{{ topic.content }}

@@ -19,7 +19,6 @@ from django.db.models import Q
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.template import RequestContext as RC
 
-@login_required
 def index(request):
   members = Member.objects.all()
   topics_all = Topic.objects.all().order_by('-created')
