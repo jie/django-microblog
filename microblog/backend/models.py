@@ -2,14 +2,15 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 from PIL import Image
 from urllib2 import unquote
 import os
 
 class Member(models.Model):
   user = models.ForeignKey(User,unique=True)
-  nickname = models.CharField(verbose_name='昵称',max_length=6)
-  protrait = models.ImageField(verbose_name='头像',null=True,blank=True,upload_to='protrait/%Y/%m/%d')
+  nickname = models.CharField(_('Nickname'),max_length=6)
+  protrait = models.ImageField(_('Protrait'),null=True,blank=True,upload_to='protrait/%Y/%m/%d')
   unread_count = models.IntegerField(null=True,blank=True)
 
   def gen_unread_count(self):

@@ -1,14 +1,15 @@
 {% extends 'base.html'%}
+{% load i18n %} 
 {% block menutab %}
-<div class="menutab"><a href="/">广播大厅</a></div>
-<div class="menutab"><a href="/member/">我的主页</a></div>
-<div class="menutab currenttab"><a href="#">站内信</a></div>
+<div class="menutab"><a href="/">{% trans 'All topic' %}</a></div>
+<div class="menutab"><a href="/member/">{% trans 'My home page' %}</a></div>
+<div class="menutab currenttab"><a href="#">{% trans 'Site Messege' %}</a></div>
 {% endblock %}
 {% block main %}
 <div id="MailTextarea">
 	<div class="mail-sender">
 		<div class="sender-name">
-			<span>发送给 :  <a href="/member/{{ recipient.username}}">{{ recipient.get_profile.nickname}}</a></span>
+			<span>{% trans 'Send to' %} :  <a href="/member/{{ recipient.username}}">{{ recipient.get_profile.nickname}}</a></span>
 		</div>
 		<div class="sender-protrait">
 			<a href="/member/{{ recipient.username}}">
@@ -20,7 +21,7 @@
 	<form method="post" action="">
 		<textarea id="MailForm" name="content"></textarea>
 		<div id="MailFormControl">
-			<input type="submit" id="MailButton" class="button orange" value="提交"/>
+			<input type="submit" id="MailButton" class="button orange" value="{% trans 'Submit' %}"/>
 			<div class="clearfix"></div>
 		</div>
 		<input type="hidden" name="mailto" value="{{user.id}}" />

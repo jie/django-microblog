@@ -19,13 +19,13 @@ class MyUserSettingsForm(forms.ModelForm):
 
 class MyUserCreationForm(UserCreationForm):
   username = forms.RegexField(label=_("Username"), max_length=30, regex=r'^[\w.@+-]+$',
-    help_text = _(u"<span>只含数字字符下划线</span>"),
+    help_text = _(u"contain only letters, numbers and some symbol"),
     error_messages = {'invalid': _("This value may contain only letters, numbers and @/./+/-/_ characters.")})
   password1 = forms.CharField(label=_("Password"), widget=forms.PasswordInput)
   password2 = forms.CharField(label=_("Password confirmation"), widget=forms.PasswordInput,
-    help_text = _(u"<span>请输入和上面相同的字符</span>"))
-  email = forms.CharField(label=_(u"电子邮箱"))
-  nickname = forms.CharField(label=_(u"昵称"))
+    help_text = _(u"Please enter the same characters as above."))
+  email = forms.CharField(label=_("Email"))
+  nickname = forms.CharField(label=_("Nickname"))
   class Meta:
     model = User
     fields = ("username",)

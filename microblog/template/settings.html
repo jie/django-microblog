@@ -1,11 +1,11 @@
 {% extends "base_one.html" %}
-
+{% load i18n %}
 {% block title %}Login in{% endblock %}
 
 {% block main %}
 <div id="UserFormWrap" >
   <div id="UserForm">
-  <h1>用户设置</h1>
+  <h1>{% trans 'User Settings' %}</h1>
    <div id="ProfileBoxOne">
     <div id="Profile">
       <div id="ProfilePropraitOne">
@@ -14,9 +14,9 @@
         </div>
       </div>
       <div id="ProfileInfoOne">
-        <div class="profile-nickname-one">用户名: {{user.username}}</div>
-        <div class="profile-name-one">昵称: {{ user.get_profile.nickname }}</div>
-        <div class="profile-last-one">上次登录时间: <span>{{ user.last_login|date:"Y-m-d H:i:s" }}</span></div>
+        <div class="profile-nickname-one">{% trans 'User Name' %}: {{user.username}}</div>
+        <div class="profile-name-one">{% trans 'Nickname' %}: {{ user.get_profile.nickname }}</div>
+        <div class="profile-last-one">{% trans 'Last time login' %}: <span>{{ user.last_login|date:"Y-m-d H:i:s" }}</span></div>
       </div>
       <div class="clearfix"></div>
     </div>
@@ -24,13 +24,13 @@
   <form action="" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
 	{{ info_form.as_p }}
-	<p><input class="submit-button button orange" type="submit" value="提交"></p>
+	<p><input class="submit-button button orange" type="submit" value="{% trans 'Submit' %}"></p>
   </form>
-  <h1>修改密码</h1>
+  <h1>{% trans 'Change Password' %}</h1>
   <form method="post" action="">
   {% csrf_token %}
   {{password_form.as_p}}
-  <p><input class="submit-button button orange" type="submit" value="修改"></p>
+  <p><input class="submit-button button orange" type="submit" value="{% trans 'Modify' %}"></p>
   </form>
   </div>
 </div>

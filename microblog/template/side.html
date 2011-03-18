@@ -1,3 +1,4 @@
+{% load i18n %} 
 {% ifequal page_type 'index' %}
 {% if user.get_profile %}
 <div id="ProfileBox">
@@ -50,9 +51,9 @@
 			</div>
 			<div id="UserFollow">
 			<button id="FollowBtn" class="button {% ifequal is_followed 0 %}orange{% else %}green{% endifequal%}" type="button" value="{{ view_user.id }}">
-			{% ifequal is_followed 0 %}关注他{% else %}已关注{% endifequal%}
+			{% ifequal is_followed 0 %}{% trans 'Follow' %}{% else %}{% trans 'Followed' %}{% endifequal%}
 			</button>
-			<a href="/mail/mailto/{{ view_user.id }}/" id="FollowBtn" class="button red mailtobtn">写邮件</a>
+			<a href="/mail/mailto/{{ view_user.id }}/" id="FollowBtn" class="button red mailtobtn">{% trans 'Write mail' %}</a>
 			</div>
 		</div>
 		<div id="ProfileInfo">
@@ -71,7 +72,7 @@
 <div class="clearblank"></div>
 <div class="member-box-wrap">
 	<div class="member-box-title">
-		<div class="member-box-text">关注的人</div>
+		<div class="member-box-text">{% trans 'He Followed' %}</div>
 	</div>
 	<div class="member-box">
 		<ul>
@@ -94,7 +95,7 @@
 <div class="clearblank"></div>
 <div class="member-box-wrap">
 	<div class="member-box-title">
-		<div class="member-box-text">关注他的人</div>
+		<div class="member-box-text">{% trans 'People Followed him' %}</div>
 	</div>
 	<div class="member-box">
 		<ul>
@@ -115,7 +116,7 @@
 {% if members %}
 <div class="member-box-wrap">
 	<div class="member-box-title">
-		<div class="member-box-text">最近加入的用户</div>
+		<div class="member-box-text">{% trans 'Joined Recently' %}</div>
 	</div>
 	<div class="member-box">
 		<ul>

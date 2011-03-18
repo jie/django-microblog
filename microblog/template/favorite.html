@@ -1,70 +1,27 @@
 {% extends 'base.html'%}
+{% load i18n %}
 {% block menutab %}
-<div class="menutab"><a href="/">广播大厅</a></div>
-<div class="menutab"><a href="/member/">我的主页</a></div>
-<div class="menutab currenttab"><a href="/favorite/">收藏夹</a></div>
+<div class="menutab"><a href="/">{% trans 'All topic' %}</a></div>
+<div class="menutab"><a href="/member/">{% trans 'My home page' %}</a></div>
+<div class="menutab currenttab"><a href="/favorite/">{% trans 'Favorite place' %}</a></div>
 {% endblock %}
 {% block main %}
 <div id="TopicWrap">
-	{% for topic in topics.object_list %}
-	<div class="topic-all">
-		<div class="topic-left">
-			<div class="topic-author">
-				<div class="topic-author-protrait">
-					<img class="box-shadow-dark" src="{{ topic.author.get_profile.gen_protrait }}" width="50" height="50"/>
-				</div>
-				<div class="topic-author-nickname">
-					<a href="/member/{{ topic.author.username }}/">{{ topic.author.get_profile.nickname }}</a>
-				</div>
-			</div>
-		</div>
-		<div class="topic-right">
-			<div class="topic-meta">
-				<span class="topic-datetime">发布于{{ topic.created|timesince }}以前</span>
-				<span class="topic-control">
-					<ul>
-						<li class="conversation"><button title="收藏" class="favbtn {%if user in topic.get_fav_users %}fav{% else %}unfav{% endif %}" value="{{topic.id}}" type="button"></button></li>
-						<li class="conversation"><button class="topic-reply round-corner-button" value="{{topic.id}}" type="button">回复</button></li>
-					</ul>
-				</span>
-			</div>
-			<div class="topic-content-wrap">
-				<div class="topic-content">{{ topic.content }}
-					{% if topic.conversation %}
-					<div class="topic-content-conversation">
-						<span><a href="/member/{{ topic.conversation.author.username }}/">{{ topic.conversation.author.get_profile.nickname }}</a></span><span>说：</span><span>{{ topic.conversation.content }}</span>
-					</div>
-					{% endif %}
-				</div>
-				<div class='conversation-form box-shadow'>
-					<input type='text' name='conversation'/>
-					<input type='hidden' name='topic-id' value='{{ topic.id }}'/>
-					<button type="button" class="conversation-button button orange">发布</button>
-					<div class="closebtn"></div>
-				</div>
-			</div>
-		</div>
-		<div class="clearfix"></div>
-	</div>
-	{% empty %}
-	<div class="no-topic">
-		<h4>No favorite has been posted yet.</h4>
-	</div>
-	{% endfor %}
+{% include 'topics.html '%}
 </div>
 {% if paginator.count > paginator.per_page %}
 <div class="pagination">
 	<span class="step-links">
 		{% if topics.has_previous %}
-			<span class="prev round-corner-button"><a href="?page={{ topics.previous_page_number }}">PREV</a></span>
+			<span class="prev round-corner-button"><a href="?page={{ topics.previous_page_number }}">{% trans 'PREV' %}</a></span>
 		{% endif %}
 
 		<span class="current round-corner-button">
-			PAGE {{ topics.number }}/{{ topics.paginator.num_pages }}
+			{% trans 'PAGE' %} {{ topics.number }}/{{ topics.paginator.num_pages }}
 		</span>
 
 		{% if topics.has_next %}
-			<span class="next round-corner-button"><a href="?page={{ topics.next_page_number }}">NEXT</a></span>
+			<span class="next round-corner-button"><a href="?page={{ topics.next_page_number }}">{% trans 'NEXT' %}</a></span>
 		{% endif %}
 	</span>
 </div>

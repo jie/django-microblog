@@ -1,63 +1,20 @@
 {% extends 'base.html' %}
+{% load i18n %} 
 {% block menutab %}
-<div class="menutab"><a href="/">广播大厅</a></div>
-<div class="menutab currenttab"><a href="/member/">我的主页</a></div>
-<div class="menutab"><a href="/favorite/">收藏夹</a></div>
+<div class="menutab"><a href="/">{% trans 'All topic' %}</a></div>
+<div class="menutab currenttab"><a href="/member/">{% trans 'My home page' %}</a></div>
+<div class="menutab"><a href="/favorite/">{% trans 'Favorite place' %}</a></div>
 {% endblock %}
 {% block main %}
 <div id="TopicTextarea">
 	<textarea id="TopicForm" name="topic"></textarea>
 	<div id="TopicFormControl">
-		<button type="button" id="TopicButton" class="button orange">发布</button>
+		<button type="button" id="TopicButton" class="button orange">{% trans 'Submit'%}</button>
 		<div class="clearfix"></div>
 	</div>
 </div>
 <div id="TopicWrap">
-	{% for topic in topics.object_list %}
-	<div class="topic-all">
-		<div class="topic-left">
-			<div class="topic-author">
-				<div class="topic-author-protrait">
-					<img class="box-shadow" src="{{topic.author.get_profile.gen_protrait}}" width="50" height="50"/>
-				</div>
-				<div class="topic-author-nickname">
-					<a href="/member/{{ topic.author.username }}/">{{ topic.author.get_profile.nickname }}</a>
-				</div>
-			</div>
-		</div>
-		<div class="topic-right">
-			<div class="topic-meta">
-				<span class="topic-datetime">发布于{{ topic.created|timesince }}以前</span>
-				<span class="topic-control">
-					<ul>
-						<li class="conversation"><button class="topic-reply round-corner-button" value="{{topic.id}}" type="button">回复</button></li>
-						<li class="conversation"><button class="topic-delete round-corner-button" value="{{topic.id}}" type="button">删除</button></li>
-					</ul>
-				</span>
-			</div>
-			<div class="topic-content-wrap">
-				<div class="topic-content">{{ topic.content }}
-					{% if topic.conversation %}
-					<div class="topic-content-conversation">
-						<span><a href="/member/{{ topic.conversation.author.username }}/">{{ topic.conversation.author.get_profile.nickname }}</a></span><span>说：</span><span>{{ topic.conversation.content }}</span>
-					</div>
-					{% endif %}
-				</div>
-				<div class='conversation-form box-shadow'>
-					<input type='text' name='conversation'/>
-					<input type='hidden' name='topic-id' value='{{ topic.id }}'/>
-					<button type="button" class="conversation-button button orange">发布</button>
-					<div class="closebtn"></div>
-				</div>
-			</div>
-		</div>
-		<div class="clearfix"></div>
-	</div>
-	{% empty %}
-	<div class="no-topic">
-		<h4>No topics has been posted yet.</h4>
-	</div>
-	{% endfor %}
+{% include 'topics.html '%}
 </div>
 
 {% if paginator.count > paginator.per_page %}

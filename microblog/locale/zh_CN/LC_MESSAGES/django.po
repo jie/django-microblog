@@ -1,0 +1,226 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-18 22:20+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\backend\forms.py:21
+msgid "Username"
+msgstr "用户名"
+
+#: .\backend\forms.py:22
+msgid "contain only letters, numbers and some symbol"
+msgstr "只能包含字母数字和一些符号"
+
+#: .\backend\forms.py:23
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "只能包含字母数字和@/./+/-/_"
+
+#: .\backend\forms.py:24
+msgid "Password"
+msgstr "密码"
+
+#: .\backend\forms.py:25
+msgid "Password confirmation"
+msgstr "确认密码"
+
+#: .\backend\forms.py:26
+msgid "Please enter the same characters as above."
+msgstr "请填写与上方向同的字符"
+
+#: .\backend\forms.py:27
+msgid "Email"
+msgstr "邮箱"
+
+#: .\backend\forms.py:28 .\backend\models.py:12 .\template\settings.html.py:18
+msgid "Nickname"
+msgstr "昵称"
+
+#: .\backend\forms.py:39
+msgid "A user with that username already exists."
+msgstr "用户名已经存在"
+
+#: .\backend\forms.py:45
+msgid "The two password fields didn't match."
+msgstr "2个密码不匹配"
+
+#: .\backend\models.py:13
+msgid "Protrait"
+msgstr "头像"
+
+#: .\template\base.html.py:39 .\template\base_one.html.py:39
+msgid "Welcome back"
+msgstr "欢迎回来"
+
+#: .\template\base.html.py:43 .\template\base_one.html.py:43
+#: .\template\topics.html.py:23
+msgid "Favorite"
+msgstr "收藏"
+
+#: .\template\base.html.py:44 .\template\base_one.html.py:44
+msgid "Settings"
+msgstr "设置"
+
+#: .\template\base.html.py:45 .\template\base_one.html.py:45
+msgid "Logout"
+msgstr "登出"
+
+#: .\template\base.html.py:47 .\template\base_one.html.py:47
+#: .\template\login.html.py:12
+msgid "Login"
+msgstr "登录"
+
+#: .\template\base.html.py:48 .\template\base_one.html.py:48
+#: .\template\signup.html.py:12
+msgid "Signup"
+msgstr "注册"
+
+#: .\template\favorite.html.py:4 .\template\inbox.html.py:4
+#: .\template\index.html.py:4 .\template\mail.html.py:4
+#: .\template\member.html.py:4 .\template\self.html.py:4
+msgid "All topic"
+msgstr "广播大厅"
+
+#: .\template\favorite.html.py:5 .\template\inbox.html.py:5
+#: .\template\index.html.py:5 .\template\mail.html.py:5
+#: .\template\member.html.py:5 .\template\self.html.py:5
+msgid "My home page"
+msgstr "我的主页"
+
+#: .\template\favorite.html.py:6 .\template\index.html.py:6
+#: .\template\member.html.py:7 .\template\self.html.py:6
+msgid "Favorite place"
+msgstr "收藏夹"
+
+#: .\template\favorite.html.py:16 .\template\inbox.html.py:43
+#: .\template\index.html.py:16
+msgid "PREV"
+msgstr "前一页"
+
+#: .\template\favorite.html.py:20 .\template\inbox.html.py:47
+#: .\template\index.html.py:20
+msgid "PAGE"
+msgstr "页数"
+
+#: .\template\favorite.html.py:24 .\template\inbox.html.py:51
+#: .\template\index.html.py:24
+msgid "NEXT"
+msgstr "下一页"
+
+#: .\template\inbox.html.py:6
+msgid "Inbox"
+msgstr "收件箱"
+
+#: .\template\inbox.html.py:7
+msgid "Sendbox"
+msgstr "发件箱"
+
+#: .\template\inbox.html.py:18
+msgid "From"
+msgstr "来自"
+
+#: .\template\inbox.html.py:26
+msgid "Posted time"
+msgstr "发送时间"
+
+#: .\template\inbox.html.py:27
+msgid "Reply letter"
+msgstr "回信"
+
+#: .\template\login.html.py:8
+msgid "Member Login"
+msgstr "会员登录"
+
+#: .\template\mail.html.py:6
+msgid "Site Messege"
+msgstr "站内信"
+
+#: .\template\mail.html.py:12
+msgid "Send to"
+msgstr "发送给"
+
+#: .\template\mail.html.py:24 .\template\self.html.py:12
+#: .\template\settings.html.py:27 .\template\topics.html.py:40
+msgid "Submit"
+msgstr "提交"
+
+#: .\template\settings.html.py:8
+msgid "User Settings"
+msgstr "用户设置"
+
+#: .\template\settings.html.py:17
+msgid "User Name"
+msgstr "用户名"
+
+#: .\template\settings.html.py:19
+msgid "Last time login"
+msgstr "上次登录时间"
+
+#: .\template\settings.html.py:29
+msgid "Change Password"
+msgstr "修改密码"
+
+#: .\template\settings.html.py:33
+msgid "Modify"
+msgstr "修改"
+
+#: .\template\side.html.py:54
+msgid "Follow"
+msgstr "关注他"
+
+#: .\template\side.html.py:54
+msgid "Followed"
+msgstr "已关注"
+
+#: .\template\side.html.py:56
+msgid "Write mail"
+msgstr "写邮件"
+
+#: .\template\side.html.py:75
+msgid "He Followed"
+msgstr "他关注的人"
+
+#: .\template\side.html.py:98
+msgid "People Followed him"
+msgstr "关注他的人"
+
+#: .\template\side.html.py:119
+msgid "Joined Recently"
+msgstr "最近加入的会员"
+
+#: .\template\signup.html.py:8
+msgid "Create Microblog Passport"
+msgstr "创建Microblog账户"
+
+#: .\template\topics.html.py:16
+msgid "Posted"
+msgstr "发布于"
+
+#: .\template\topics.html.py:16
+msgid "ago"
+msgstr "以前"
+
+#: .\template\topics.html.py:24
+msgid "Reply"
+msgstr "回复"
+
+#: .\template\topics.html.py:33
+msgid "Say"
+msgstr "说"
+
+#: .\template\topics.html.py:49
+msgid "No topic has been posted yet."
+msgstr "这里空空如也"
