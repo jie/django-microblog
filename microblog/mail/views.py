@@ -71,3 +71,4 @@ def sendbox_view(request):
     'mails':mails,
     'page_type':'mail',
     },context_instance=RC(request))
+
