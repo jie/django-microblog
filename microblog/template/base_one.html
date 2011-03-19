@@ -60,7 +60,18 @@
 	<div id="BottomWrap">
 		<div id="BottomOne">
 			<div id="CopyRight">Copyright © 2011 - 2012 Micoblog All Rights Reserved</div>
-			<div id="PowerBy"></div>
+			<div id="LanguageSelect">
+				<form action="/i18n/setlang/" method="post">
+				{% csrf_token %}
+				<input name="next" type="hidden" value="{{ request.path }}" />
+				<select name="language">
+				{% for lang in LANGUAGES %}
+				<option value="{{ lang.0 }}"  {%ifequal LANGUAGE_CODE lang.0 %}selected="selected"{% endifequal %}>{{ lang.1 }}</option>
+				{% endfor %}
+				</select>
+				<input type="submit" value="Go" />
+				</form>
+			</div>
 		</div>
 	</div>
 </body>
