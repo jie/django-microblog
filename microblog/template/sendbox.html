@@ -25,7 +25,10 @@
 				</div>
 				<div class="mail-datetime">{% trans 'Posted time' %} : {{ mail.created|date:"Y-m-d H:i:s"}}</div>
 			</div>
-			<span class="mail-reply-btn"><a href="/mail/mailto/{{mail.recipient.id}}">{% trans 'Reply letter' %}</a></span>
+			<div class="mail-control">
+				<a href="/mail/mailto/{{mail.user.id}}/"><span class="mail-reply-btn"></span></a>
+				<a href="/mail/delete/{{mail.id}}/?go=/mail/sendbox/"><span class="mail-delete-btn"></span></a>
+			</div>
 			<div class="clearblank"></div>
 		</div>
 		<div class="mail-content-wrap">
@@ -34,10 +37,14 @@
 			</div>
 		</div>
 	</div>
+	{% empty %}
+	<div class="no-topic">
+		<h4>{% trans 'No mail be sent' %}</h4>
+	</div>
 	{% endfor %}
 </div>
 
-
+{% if paginator.count > paginator.per_page %}
 <div class="pagination">
 	<span class="step-links">
 		{% if mails.has_previous %}
@@ -53,6 +60,6 @@
 		{% endif %}
 	</span>
 </div>
-
+{% endif %}
 
 {% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-18 22:29+0800\n"
+"POT-Creation-Date: 2011-03-19 23:52+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,17 +16,25 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: .\settings.py:61
+msgid "Chinese"
+msgstr ""
+
+#: .\settings.py:62
+msgid "English"
+msgstr ""
+
 #: .\backend\forms.py:21
 msgid "Username"
 msgstr "Username"
 
 #: .\backend\forms.py:22
 msgid "contain only letters, numbers and some symbol"
-msgstr "contain only letters, numbers and some symbol"
+msgstr "Letters, numbers, underline"
 
 #: .\backend\forms.py:23
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Letters, numbers and underline permitted"
 
 #: .\backend\forms.py:24
 msgid "Password"
@@ -34,11 +42,11 @@ msgstr "Password"
 
 #: .\backend\forms.py:25
 msgid "Password confirmation"
-msgstr "Password confirmation"
+msgstr "Password confirm"
 
 #: .\backend\forms.py:26
 msgid "Please enter the same characters as above."
-msgstr "Please enter the same characters as above."
+msgstr "Please enter the same characters as above"
 
 #: .\backend\forms.py:27
 msgid "Email"
@@ -50,7 +58,7 @@ msgstr "Nickname"
 
 #: .\backend\forms.py:39
 msgid "A user with that username already exists."
-msgstr "A user with that username already exists."
+msgstr "A user with that username already exists"
 
 #: .\backend\forms.py:45
 msgid "The two password fields didn't match."
@@ -90,40 +98,42 @@ msgstr "Signup"
 #: .\template\favorite.html.py:4 .\template\inbox.html.py:4
 #: .\template\index.html.py:4 .\template\mail.html.py:4
 #: .\template\member.html.py:4 .\template\self.html.py:4
+#: .\template\sendbox.html.py:4
 msgid "All topic"
-msgstr "Public Topics"
+msgstr "All topics"
 
 #: .\template\favorite.html.py:5 .\template\inbox.html.py:5
 #: .\template\index.html.py:5 .\template\mail.html.py:5
 #: .\template\member.html.py:5 .\template\self.html.py:5
+#: .\template\sendbox.html.py:5
 msgid "My home page"
-msgstr "Home Page"
+msgstr "Home page"
 
-#: .\template\favorite.html.py:6 .\template\index.html.py:6
-#: .\template\member.html.py:7 .\template\self.html.py:6
+#: .\template\favorite.html.py:6 .\template\member.html.py:7
+#: .\template\self.html.py:6
 msgid "Favorite place"
 msgstr "Favorite"
 
-#: .\template\favorite.html.py:16 .\template\inbox.html.py:43
-#: .\template\index.html.py:16
+#: .\template\favorite.html.py:16 .\template\inbox.html.py:50
+#: .\template\index.html.py:15 .\template\sendbox.html.py:51
 msgid "PREV"
 msgstr "PREV"
 
-#: .\template\favorite.html.py:20 .\template\inbox.html.py:47
-#: .\template\index.html.py:20
+#: .\template\favorite.html.py:20 .\template\inbox.html.py:54
+#: .\template\index.html.py:19 .\template\sendbox.html.py:55
 msgid "PAGE"
 msgstr "PAGE"
 
-#: .\template\favorite.html.py:24 .\template\inbox.html.py:51
-#: .\template\index.html.py:24
+#: .\template\favorite.html.py:24 .\template\inbox.html.py:58
+#: .\template\index.html.py:23 .\template\sendbox.html.py:59
 msgid "NEXT"
 msgstr "NEXT"
 
-#: .\template\inbox.html.py:6
+#: .\template\inbox.html.py:6 .\template\sendbox.html.py:6
 msgid "Inbox"
 msgstr "Inbox"
 
-#: .\template\inbox.html.py:7
+#: .\template\inbox.html.py:7 .\template\sendbox.html.py:7
 msgid "Sendbox"
 msgstr "Sendbox"
 
@@ -131,13 +141,21 @@ msgstr "Sendbox"
 msgid "From"
 msgstr "From"
 
-#: .\template\inbox.html.py:26
+#: .\template\inbox.html.py:26 .\template\sendbox.html.py:26
 msgid "Posted time"
 msgstr "Posted"
 
-#: .\template\inbox.html.py:27
-msgid "Reply letter"
+#: .\template\inbox.html.py:28
+msgid "Reply mail"
 msgstr "Reply"
+
+#: .\template\inbox.html.py:29
+msgid "Delete mail"
+msgstr "Delete"
+
+#: .\template\inbox.html.py:41
+msgid "No mail received"
+msgstr "No mail received"
 
 #: .\template\login.html.py:8
 msgid "Member Login"
@@ -145,9 +163,9 @@ msgstr "Member Login"
 
 #: .\template\mail.html.py:6
 msgid "Site Messege"
-msgstr "Messege"
+msgstr "Mail"
 
-#: .\template\mail.html.py:12
+#: .\template\mail.html.py:12 .\template\sendbox.html.py:17
 msgid "Send to"
 msgstr "Send to"
 
@@ -155,6 +173,10 @@ msgstr "Send to"
 #: .\template\settings.html.py:27 .\template\topics.html.py:40
 msgid "Submit"
 msgstr "Submit"
+
+#: .\template\sendbox.html.py:42
+msgid "No mail be sent"
+msgstr "No mail be sent"
 
 #: .\template\settings.html.py:8
 msgid "User Settings"
@@ -166,7 +188,7 @@ msgstr "Username"
 
 #: .\template\settings.html.py:19
 msgid "Last time login"
-msgstr "Last time logined"
+msgstr "Last time"
 
 #: .\template\settings.html.py:29
 msgid "Change Password"
@@ -176,29 +198,21 @@ msgstr "Change Password"
 msgid "Modify"
 msgstr "Modify"
 
-#: .\template\side.html.py:54
-msgid "Follow"
-msgstr "Follow"
+#: .\template\side.html.py:11
+msgid "Write mail"
+msgstr "Write mail"
 
-#: .\template\side.html.py:54
-msgid "Followed"
+#: .\template\side.html.py:30
+msgid "He Followed"
 msgstr "Followed"
 
-#: .\template\side.html.py:56
-msgid "Write mail"
-msgstr "Mail"
-
-#: .\template\side.html.py:75
-msgid "He Followed"
-msgstr "He Followed"
-
-#: .\template\side.html.py:98
+#: .\template\side.html.py:53
 msgid "People Followed him"
-msgstr "People Followed him"
+msgstr "People Followed"
 
-#: .\template\side.html.py:119
+#: .\template\side.html.py:74
 msgid "Joined Recently"
-msgstr "Members Joined Recently"
+msgstr "Recently Joined"
 
 #: .\template\signup.html.py:8
 msgid "Create Microblog Passport"
@@ -206,11 +220,11 @@ msgstr "Create Microblog Passport"
 
 #: .\template\topics.html.py:16
 msgid "Posted"
-msgstr "Posted"
+msgstr "Posted "
 
 #: .\template\topics.html.py:16
 msgid "ago"
-msgstr "ago"
+msgstr " ago"
 
 #: .\template\topics.html.py:24
 msgid "Reply"
@@ -218,8 +232,8 @@ msgstr "Reply"
 
 #: .\template\topics.html.py:33
 msgid "Say"
-msgstr "Say"
+msgstr " said"
 
 #: .\template\topics.html.py:49
 msgid "No topic has been posted yet."
-msgstr "No topic has been posted yet."
+msgstr "No topic has been posted yet"

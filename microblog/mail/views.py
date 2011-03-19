@@ -1,10 +1,19 @@
 from django.http import HttpResponseRedirect, HttpResponse, Http404
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response,get_object_or_404
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from backend.models import Mail
 from django.template import RequestContext as RC
+
+@login_required
+def delete_mail(request, mail_id):
+  if request.method=='GET':
+    mail = get_object_or_404(Mail, pk=int(mail_id))
+    redirect_to = request.GET.get('go')
+    if mail.user == request.user:
+      mail.delete()
+      return HttpResponseRedirect(redirect_to)
 
 @login_required
 def mail_view(request,mailto):
@@ -52,6 +61,7 @@ def inbox_view(request):
     'unread_count':request.user.get_profile().unread_count,
     'mails':mails,
     'page_type':'mail',
+    'paginator':paginator,
     },context_instance=RC(request))
 
 @login_required
@@ -70,5 +80,6 @@ def sendbox_view(request):
   return render_to_response("sendbox.html", {
     'mails':mails,
     'page_type':'mail',
+    'paginator':paginator,
     },context_instance=RC(request))
 
