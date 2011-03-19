@@ -19,27 +19,6 @@ from django.db.models import Q
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.template import RequestContext as RC
 
-
-def set_language(request): 
-  from django.utils.translation import check_for_language 
-  
-  next = request.REQUEST.get('next', None) 
-  if not next: 
-    next = request.META.get('HTTP_REFERER', None) 
-  if not next: 
-    next = '/' 
-  response = HttpResponseRedirect(next) 
-  lang_code = request.GET.get('language', None) 
-  if lang_code and check_for_language(lang_code): 
-    if hasattr(request, 'session'): 
-      request.session['django_language'] = lang_code 
-    max_age =  60*60*24*365 
-    expires = datetime.datetime.strftime(datetime.datetime.utcnow() + datetime.timedelta(seconds=max_age), "%a, %d-%b-%Y %H:%M:%S GMT") 
-    response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code, max_age, expires) 
-  return response
-
-
-
 def index(request):
   members = Member.objects.all()
   topics_all = Topic.objects.all().order_by('-created')
@@ -57,6 +36,8 @@ def index(request):
     'topics':topics,
     'paginator':paginator,
     'page_type':'index',
+    'has_side':True,
+    'view_user':request.user,
     },context_instance=RC(request))
 
 @login_required
@@ -187,6 +168,8 @@ def self_view(request):
     'follower':follower,
     'followed':followed,
     'page_type': 'self',
+    'view_user':request.user,
+    'has_side':True,
   },context_instance=RC(request))
 
 
@@ -223,4 +206,5 @@ def member_view(request, user_name):
     'page_type':'member',
     'follower':follower,
     'followed':followed,
+    'has_side':True,
   },context_instance=RC(request))

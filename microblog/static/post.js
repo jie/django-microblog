@@ -30,15 +30,12 @@
 			data: $(this).val(),
 			error: function(msg){alert('Fail')},
 			success: function(msg){
-				followText.text(msg)
-				if(followText.hasClass('orange')){
-					followText.removeClass('orange')
-					followText.addClass('green')
-					followText.text('已关注')
-				}else if(followText.hasClass('green')){
-					followText.removeClass('green')
-					followText.addClass('orange')
-					followText.text('关注')
+				if(followText.hasClass('follow')){
+					followText.removeClass('follow')
+					followText.addClass('followed')
+				}else if(followText.hasClass('followed')){
+					followText.removeClass('followed')
+					followText.addClass('follow')
 				}
 			}
 		});

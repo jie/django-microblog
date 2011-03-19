@@ -18,10 +18,10 @@
 			<span class="topic-control">
 				<ul>
 					{% ifequal page_type 'self' %}
-					<li class="conversation"><button class="topic-delete round-corner-button" value="{{topic.id}}" type="button">删除</button></li>
+					<li class="conversation"><button title="Delete" class="topic-delete" value="{{topic.id}}" type="button"></button></li>
 					{% endifequal %}
 					<li class="conversation"><button title="{% trans 'Favorite' %}" class="favbtn {%if user in topic.get_fav_users %}fav{% else %}unfav{% endif %}" value="{{topic.id}}" type="button"></button></li>
-					<li class="conversation"><button class="topic-reply round-corner-button" value="{{topic.id}}" type="button">{% trans 'Reply' %}</button></li>
+					<li class="conversation"><button title="Reply" class="topic-reply" value="{{topic.id}}" type="button"><!--{% trans 'Reply' %}--></button></li>
 				</ul>
 			</span>
 			{% endif %}

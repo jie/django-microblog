@@ -6,6 +6,7 @@ from backend.views import *
 admin.autodiscover()
 
 urlpatterns = patterns('',
+  (r'^i18n/', include('django.conf.urls.i18n')),
   (r'^admin/doc/', include('django.contrib.admindocs.urls')),
   (r'^mail/', include('microblog.mail.urls')),
   (r'^passport/', include('microblog.account.urls')),
@@ -20,6 +21,5 @@ urlpatterns = patterns('',
   (r'^conversation/$', post_conversation),
   (r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.MEDIA_ROOT}),
   (r'^admin/', include(admin.site.urls)),
-  (r'^lang/', set_language),
   (r'^$', index),
 )

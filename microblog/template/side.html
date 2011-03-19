@@ -1,48 +1,6 @@
 {% load i18n %} 
-{% ifequal page_type 'index' %}
-{% if user.get_profile %}
-<div id="ProfileBox">
-	<div id="Profile">
-		<div id="ProfileProprait">
-			<div id="UserProprait">
-				<img class="box-shadow-dark" src="{{user.get_profile.gen_protrait}}" width="50" height="50"/>
-			</div>
-		</div>
-		<div id="ProfileInfo">
-			<div class="profile-nickname">{{user.username}}</div>
-			<div class="profile-name">{{ user.get_profile.nickname }}</div>
-			<div class="profile-last"><span>{{ user.last_login|date:"Y-m-d H:i:s" }}</span></div>
-		</div>
-		<div class="clearfix"></div>
-	</div>
-</div>
-{% endif %}
-{% endifequal %}
 
-
-{% ifequal page_type 'self' %}
-{% if user.get_profile %}
-<div id="ProfileBox">
-	<div id="Profile">
-		<div id="ProfileProprait">
-			<div id="UserProprait">
-				<img class="box-shadow-dark" src="{{user.get_profile.gen_protrait}}" width="50" height="50"/>
-			</div>
-		</div>
-		<div id="ProfileInfo">
-			<div class="profile-nickname">{{user.username}}</div>
-			<div class="profile-name">{{ user.get_profile.nickname }}</div>
-			<div class="profile-last"><span>{{ user.last_login|date:"Y-m-d H:i:s" }}</span></div>
-		</div>
-		<div class="clearfix"></div>
-	</div>
-</div>
-{% endif %}
-{% endifequal %}
-
-
-
-{% ifequal page_type 'member'%}
+{% if user.get_profile and has_side %}
 <div id="ProfileBox">
 	<div id="Profile">
 		<div id="ProfileProprait">
@@ -50,21 +8,19 @@
 				<img class="box-shadow-dark" src="{{view_user.get_profile.gen_protrait}}" width="50" height="50"/>
 			</div>
 			<div id="UserFollow">
-			<button id="FollowBtn" class="button {% ifequal is_followed 0 %}orange{% else %}green{% endifequal%}" type="button" value="{{ view_user.id }}">
-			{% ifequal is_followed 0 %}{% trans 'Follow' %}{% else %}{% trans 'Followed' %}{% endifequal%}
-			</button>
-			<a href="/mail/mailto/{{ view_user.id }}/" id="FollowBtn" class="button red mailtobtn">{% trans 'Write mail' %}</a>
+			{% ifequal page_type 'member' %}<button id="FollowBtn" title="{% ifequal is_followed 0 %}Follow{% else %}Followed{% endifequal%}" class="follow-btn {% ifequal is_followed 0 %}follow{% else %}followed{% endifequal%}" type="button" value="{{ view_user.id }}"></button>{% endifequal %}
+			<!--{% trans 'Write mail' %}-->
 			</div>
 		</div>
 		<div id="ProfileInfo">
 			<div class="profile-nickname">{{view_user.username}}</div>
-			<div class="profile-name">{{ nickname }}</div>
+			<div class="profile-name">{% ifequal page_type 'member' %}<div class="profile-name-mail"><a href="/mail/mailto/{{ view_user.id }}/" class="mailtobtn"></a></div>{% endifequal %}<div class="profile-name-title">{{ view_user.get_profile.nickname }}</div><div class="clearfix"></div></div>
 			<div class="profile-last"><span>{{ view_user.last_login|date:"Y-m-d H:i:s" }}</span></div>
 		</div>
 		<div class="clearfix"></div>
 	</div>
 </div>
-{% endifequal %}
+{% endif %}
 
 
 
