@@ -39,7 +39,7 @@ msgstr "确认密码"
 
 #: .\backend\forms.py:26
 msgid "Please enter the same characters as above."
-msgstr "请填写与上方向同的字符"
+msgstr "请填写与上方相同的字符"
 
 #: .\backend\forms.py:27
 msgid "Email"
@@ -55,7 +55,7 @@ msgstr "用户名已经存在"
 
 #: .\backend\forms.py:45
 msgid "The two password fields didn't match."
-msgstr "2个密码不匹配"
+msgstr "密码不匹配"
 
 #: .\backend\models.py:13
 msgid "Protrait"
