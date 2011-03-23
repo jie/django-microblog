@@ -26,6 +26,10 @@
 	{{ info_form.as_p }}
 	<p><input class="submit-button button orange" type="submit" value="{% trans 'Submit' %}"></p>
   </form>
+  <h1>{% trans 'Microblog Sync' %}</h1>
+  <div class="sync-oauth"><a href="/oauth/login/?port=douban&mode=login&turn=http://localohost:8000/">{% trans 'Douban login' %}</a></div>
+  <div class="sync-oauth"><a href="/oauth/login/?port=tencent">{% trans 'Tencent login' %}</a></div>
+  <div class="sync-oauth"><a href="/oauth/login/?port=sina">{% trans 'Sina login' %}</a></div>
   <h1>{% trans 'Change Password' %}</h1>
   <form method="post" action="">
   {% csrf_token %}

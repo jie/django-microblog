@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm,Passw
 from backend.forms import MyUserSettingsForm, MyUserCreationForm
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render_to_response
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from backend.models import Member, Topic, FollowRelation, Mail
@@ -17,9 +17,11 @@ from django.db.models import Q
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.template import RequestContext as RC
 
+
 @login_required
 def logout_view(request):
   auth.logout(request)
+  messages.add_message(request, messages.SUCCESS, 'Logout Success')
   return HttpResponseRedirect("/")
 
 def login_view(request,redirect_field_name=REDIRECT_FIELD_NAME):
@@ -33,7 +35,7 @@ def login_view(request,redirect_field_name=REDIRECT_FIELD_NAME):
       elif '//' in redirect_to and re.match(r'[^\?]*//', redirect_to):
         redirect_to = settings.LOGIN_REDIRECT_URL
       auth.login(request, form.get_user())
-
+      messages.add_message(request, messages.SUCCESS, 'Login Success')
       if request.session.test_cookie_worked():
         request.session.delete_test_cookie()
 
@@ -53,6 +55,7 @@ def signup_view(request):
       new_user = form.save()
       new_user.backend="%s.%s" %('django.contrib.auth.backends','ModelBackend')
       auth.login(request, new_user)
+      messages.add_message(request, messages.SUCCESS, 'Sign Success')
       return HttpResponseRedirect("/")
   else:
     form = MyUserCreationForm()

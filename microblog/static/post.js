@@ -1,4 +1,10 @@
 ﻿$(function(){
+	$('#SystemMessages').hide();
+	$('#SystemMessages').slideDown();
+	var messages_timeout = setTimeout(function(){$('#SystemMessages').slideUp()}, 4000)
+});
+
+$(function(){
 	$('html').ajaxSend(function(event, xhr, settings) {
 		function getCookie(name) {
 			var cookieValue = null;
@@ -20,7 +26,6 @@
 			xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
 		}
 	});
-
 
 	$('#FollowBtn').click(function(){
 		var followText = $(this)

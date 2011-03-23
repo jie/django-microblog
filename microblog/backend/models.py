@@ -6,13 +6,15 @@ from django.utils.translation import ugettext_lazy as _
 from PIL import Image
 from urllib2 import unquote
 import os
+from DictionaryField import DictionaryField
+
 
 class Member(models.Model):
   user = models.ForeignKey(User,unique=True)
   nickname = models.CharField(_('Nickname'),max_length=6)
   protrait = models.ImageField(_('Protrait'),null=True,blank=True,upload_to='protrait/%Y/%m/%d')
   unread_count = models.IntegerField(null=True,blank=True)
-
+  oauth_data = DictionaryField(null=True,blank=True)
   def gen_unread_count(self):
     if self.unread_count:
       num = self.unread_count
@@ -86,3 +88,4 @@ class Mail(models.Model):
   recipient= models.ForeignKey(User, related_name='+')
   content = models.TextField()
   created = models.DateTimeField(auto_now_add=True)
+  display = models.ManyToManyField(User, related_name='mail_display')

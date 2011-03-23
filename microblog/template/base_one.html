@@ -25,6 +25,15 @@
 <body>
 {% load i18n %}
 	<div id="TopWrap" class="blue-bg">
+		{% if messages %}
+		<div id="SystemMessages">
+			<ul>
+			{% for message in messages %}
+			<li>{{ message }}</li>
+			{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
 		<div id="Top">
 			<div id="LogoWrap">
 				<div id="Logo" class="font-shadow">
@@ -36,7 +45,7 @@
 				<div id="Menu">
 					<ul>
 						{% if user.is_authenticated %}
-						<li>Hi <span id="AuthorName">{{user.get_profile.nickname}}</span>{% trans 'Welcome back' %}</li>
+						<li>Hi <span id="AuthorName">{{user.get_profile.nickname}}</span> {% trans 'Welcome back' %}</li>
 						<li><a href="/mail/inbox/">{%if user.get_profile.gen_unread_count %}<img src="/static/mail_1.png" width="15" height="15" border="0"/>{% else %}<img src="/static/mail_0.png" width="15" height="15" border="0"/>{% endif %}</a></li>
 						<li>[<a href="/mail/inbox/"><span {%if user.get_profile.gen_unread_count %}class="color-newmail-counter"{% endif %}>{{ user.get_profile.gen_unread_count }}</span></a>]</li>
 						<li><a href="/favorite/"><img src="/static/favorite.png" width="15" height="15" border="0"/></a></li>

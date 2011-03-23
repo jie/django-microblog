@@ -6,10 +6,12 @@ from backend.views import *
 admin.autodiscover()
 
 urlpatterns = patterns('',
+  (r'^oauth/', include('oauth_lib.urls')),
   (r'^i18n/', include('django.conf.urls.i18n')),
   (r'^admin/doc/', include('django.contrib.admindocs.urls')),
   (r'^mail/', include('microblog.mail.urls')),
   (r'^passport/', include('microblog.account.urls')),
+  (r'^topic/', include('microblog.main.urls')),
   (r'^member/(\w+)/$', member_view),
   (r'^member/$', self_view),
   (r'^settings/$', settings_view),

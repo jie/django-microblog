@@ -18,6 +18,8 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.db.models import Q
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.template import RequestContext as RC
+from django.contrib import messages
+
 
 def index(request):
   members = Member.objects.all()
@@ -71,7 +73,6 @@ def setfav_view(request):
     response = HttpResponse('fav')
   return response
 
-
 @login_required
 def follow_member(request):
   assert(request.method=='POST' and request.is_ajax()==True)
@@ -100,10 +101,13 @@ def delete_topic(request):
 @login_required
 def post_topic(request):
   assert(request.method=='POST' and request.is_ajax()==True)
+  oauth_data = request.user.get_profile().oauth_data
+
   content = smart_unicode(request.raw_post_data)
+
   topic = Topic(content=content, author=request.user)
   topic.save()
-  response = HttpResponse(cgi.escape(topic.content))
+  response = HttpResponse('success')
   return response
 
 @login_required
@@ -127,9 +131,11 @@ def settings_view(request):
     password_form = PasswordChangeForm(request.user,request.POST)
     if info_form.is_valid():
       info_form = info_form.save()
+      messages.add_message(request, messages.SUCCESS, 'Settings updated')
     if password_form .is_valid():
       password_form.clean_old_password()
       password_form  = password_form.save()
+      messages.add_message(request, messages.SUCCESS, 'Password changed')
     return HttpResponseRedirect("/settings/")
   else:
     info_form = MyUserSettingsForm(instance=info)

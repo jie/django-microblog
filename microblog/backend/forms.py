@@ -7,7 +7,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.utils.http import int_to_base36
 from django.contrib.auth.forms import UserCreationForm
-from backend.models import Member
+from backend.models import Member, Mail
 import StringIO
 
 class MyUserSettingsForm(forms.ModelForm):
@@ -52,6 +52,8 @@ class MyUserCreationForm(UserCreationForm):
     nickname = self.cleaned_data["nickname"]
     if commit:
       user.save()
-      member = Member(nickname=nickname, user=user)
+      member = Member(nickname=nickname, user=user, unread_count=1)
       member.save()
+      mail = Mail(user=User.objects.get(pk=1),recipient=user,content=_("Hi, %s welcome to microblog. I hope you like this application.") %user.username)
+      mail.save()
     return user

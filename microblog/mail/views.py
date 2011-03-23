@@ -5,6 +5,33 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from backend.models import Mail
 from django.template import RequestContext as RC
+from django.views.generic import list_detail, create_update
+from django.contrib import messages
+def inbox_generic_view(request):
+  return list_detail.object_list(
+    request,
+    queryset=Mail.objects.filter(user=request.user).order_by('-created'),
+    template_name='mail/mail_list.html',
+    paginate_by=5,
+    )
+
+def sendbox_generic_view(request):
+  return list_detail.object_list(
+    request,
+    queryset=Mail.objects.filter(recipient=request.user).order_by('created'),
+    template_name='mail/mail_list.html',
+    paginate_by=5,
+    )
+
+def delete_mail_generic_view(request, object_id):
+  return create_update.delete_object(
+    request,
+    model=Mail,
+    object_id = int(object_id),
+    post_delete_redirect='/mail/generic/inbox/',
+    template_name='mail/mail_confirm_delete.html',
+    extra_context={'mail':get_object_or_404(Mail, pk=int(object_id)),}
+  )
 
 @login_required
 def delete_mail(request, mail_id):
@@ -25,6 +52,7 @@ def mail_view(request,mailto):
     content = request.POST['content']
     mail = Mail(user=request.user,recipient=recipient,content=content)
     mail.save()
+    messages.add_message(request, messages.SUCCESS, 'Mail send successfully')
     member = recipient.get_profile()
     try:
       member.unread_count = member.unread_count+1
