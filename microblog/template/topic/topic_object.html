@@ -1,0 +1,51 @@
+{% load i18n %} 
+{% for topic in object_list %}
+<div class="topic-all">
+	<div class="topic-left">
+		<div class="topic-author">
+			<div class="topic-author-protrait">
+				<img class="box-shadow-dark" src="{{ topic.author.get_profile.gen_protrait }}" width="50" height="50"/>
+			</div>
+			<div class="topic-author-nickname">
+				<a href="/member/{{ topic.author.username }}/">{{ topic.author.get_profile.nickname }}</a>
+			</div>
+		</div>
+	</div>
+	<div class="topic-right">
+		<div class="topic-meta">
+			<span class="topic-datetime">{% trans 'Posted' %}{{ topic.created|timesince }}{% trans 'ago' %}</span>
+			{% if user.is_authenticated %}
+			<span class="topic-control">
+				<ul>
+					{% ifequal page_type 'self' %}
+					<li class="conversation"><button title="Delete" class="topic-delete" value="{{topic.id}}" type="button"></button></li>
+					{% endifequal %}
+					<li class="conversation"><button title="{% trans 'Favorite' %}" class="favbtn {%if user in topic.get_fav_users %}fav{% else %}unfav{% endif %}" value="{{topic.id}}" type="button"></button></li>
+					<li class="conversation"><button title="Reply" class="topic-reply" value="{{topic.id}}" type="button"><!--{% trans 'Reply' %}--></button></li>
+				</ul>
+			</span>
+			{% endif %}
+		</div>
+		<div class="topic-content-wrap">
+			<div class="topic-content">{{ topic.content }}
+				{% if topic.conversation %}
+				<div class="topic-content-conversation">
+					<span><a href="/member/{{ topic.conversation.author.username }}/">{{ topic.conversation.author.get_profile.nickname }}</a></span><span>{% trans 'Say' %}:</span><span>{{ topic.conversation.content }}</span>
+				</div>
+				{% endif %}
+			</div>
+			<div class='conversation-form box-shadow'>
+				<input type='text' name='conversation'/>
+				<input type='hidden' name='topic-id' value='{{ topic.id }}'/>
+				<button type="button" class="conversation-button button orange">{% trans 'Submit' %}</button>
+				<div class="closebtn"></div>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+{% empty %}
+<div class="no-topic">
+	<h4>{% trans 'No topic has been posted yet.' %}</h4>
+</div>
+{% endfor %}

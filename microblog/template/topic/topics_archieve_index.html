@@ -1,0 +1,33 @@
+{% extends 'base_generic.html'%}
+{% load i18n %} 
+{% block menutab %}
+<div class="menutab"><a href="/">{% trans 'All topic' %}</a></div>
+<div class="menutab"><a href="/member/">{% trans 'My home page' %}</a></div>
+{% endblock %}
+{% block main %}
+<div id="TopicWrap">
+	{% for topic in latest %}
+	<div id="test" class="test">
+		{{ topic.content }}
+	</div>
+	{% endfor %}
+</div>
+{% if paginator.count > paginator.per_page %}
+<div class="pagination">
+	<span class="step-links">
+		{% if topics.has_previous %}
+			<span class="prev round-corner-button"><a href="?page={{ topics.previous_page_number }}">{% trans 'PREV' %}</a></span>
+		{% endif %}
+
+		<span class="current round-corner-button">
+			{% trans 'PAGE' %} {{ topics.number }}/{{ topics.paginator.num_pages }}
+		</span>
+
+		{% if topics.has_next %}
+			<span class="next round-corner-button"><a href="?page={{ topics.next_page_number }}">{% trans 'NEXT' %}</a></span>
+		{% endif %}
+	</span>
+</div>
+{% endif %}
+
+{% endblock %}

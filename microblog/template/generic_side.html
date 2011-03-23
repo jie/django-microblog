@@ -1,0 +1,104 @@
+{% load i18n %} 
+{% if user.get_profile and has_side %}
+<div id="ProfileBox">
+	<div id="Profile">
+		<div id="ProfileProprait">
+			<div id="UserProprait">
+			{% ifequal page_type 'people' %}
+				<img class="box-shadow-dark" src="{{view_user.get_profile.gen_protrait}}" width="50" height="50"/>
+			{% else %}
+				<img class="box-shadow-dark" src="{{user.get_profile.gen_protrait}}" width="50" height="50"/>
+			{% endifequal %}
+			</div>
+			<div id="UserFollow">
+			{% ifequal page_type 'people' %}
+			<button id="FollowBtn" title="{% ifequal is_followed 0 %}Follow{% else %}Followed{% endifequal%}" class="follow-btn {% ifequal is_followed 0 %}follow{% else %}followed{% endifequal%}" type="button" value="{{ view_user.id }}"></button>
+			{% endifequal %}
+			</div>
+		</div>
+		<div id="ProfileInfo">
+			{% ifequal page_type 'people' %}
+			<div class="profile-nickname">{{view_user.username}}</div>
+			<div class="profile-name">
+				<div class="profile-name-mail"><a href="/mail/mailto/{{ view_user.id }}/" class="mailtobtn"></a></div>
+				<div class="profile-name-title">{{ view_user.get_profile.nickname }}</div><div class="clearfix"></div>
+			</div>
+			<div class="profile-last"><span>{{ view_user.last_login|date:"Y-m-d H:i:s" }}</span></div>
+			{% else %}
+			<div class="profile-nickname">{{user.username}}</div>
+			<div class="profile-name">
+				<div class="profile-name-title">{{ user.get_profile.nickname }}</div><div class="clearfix"></div>
+			</div>
+			<div class="profile-last"><span>{{ user.last_login|date:"Y-m-d H:i:s" }}</span></div>
+			{% endifequal %}
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>
+{% endif %}
+
+
+
+{% if followed %}
+<div class="clearblank"></div>
+<div class="member-box-wrap">
+	<div class="member-box-title">
+		<div class="member-box-text">{% trans 'He Followed' %}</div>
+	</div>
+	<div class="member-box">
+		<ul>
+		{% for follow in followed %}
+		<li>
+			<a href="/member/{{follow.follower.username}}/" class="protrait"><img class="box-shadow" src="{{ follow.follower.get_profile.gen_protrait }}" width="40" height="40" /></a>
+			<a href="/member/{{follow.follower.username}}/" class="member-nickname">{{ follow.follower.get_profile.nickname }}</a>
+		</li>
+		{% endfor %}
+		</ul>
+		<div class="clearfix"></div>
+	</div>
+</div>
+{% endif %}
+
+
+
+
+{% if follower %}
+<div class="clearblank"></div>
+<div class="member-box-wrap">
+	<div class="member-box-title">
+		<div class="member-box-text">{% trans 'People Followed him' %}</div>
+	</div>
+	<div class="member-box">
+		<ul>
+		{% for follow in follower %}
+		<li>
+			<a href="/member/{{follow.user.username}}/" class="protrait"><img class="box-shadow" src="{{ follow.user.get_profile.gen_protrait }}" width="40" height="40" /></a>
+			<a href="/member/{{follow.user.username}}/" class="member-nickname">{{ follow.user.get_profile.nickname }}</a>
+		</li>
+		{% endfor %}
+		</ul>
+		<div class="clearfix"></div>
+	</div>
+</div>
+{% endif %}
+
+
+
+{% if members %}
+<div class="member-box-wrap">
+	<div class="member-box-title">
+		<div class="member-box-text">{% trans 'Joined Recently' %}</div>
+	</div>
+	<div class="member-box">
+		<ul>
+		{% for member in members %}
+		<li>
+			<a href="/member/{{member.gen_username}}/" class="protrait"><img class="box-shadow" src="{{ member.user.get_profile.gen_protrait }}" width="40" height="40" /></a>
+			<a href="/member/{{member.gen_username}}/" class="member-nickname">{{ member.nickname }}</a>
+		</li>
+		{% endfor %}
+		</ul>
+		<div class="clearfix"></div>
+	</div>
+</div>
+{% endif %}

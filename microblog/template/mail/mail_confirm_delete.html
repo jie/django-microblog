@@ -1,0 +1,55 @@
+{% extends 'base.html'%}
+{% load i18n %} 
+{% block menutab %}
+<div class="menutab"><a href="/">{% trans 'All topic' %}</a></div>
+<div class="menutab"><a href="/member/">{% trans 'My home page' %}</a></div>
+<div class="menutab currenttab"><a href="/mail/inbox/">{% trans 'Inbox' %}</a></div>
+<div class="menutab"><a href="/mail/sendbox/">{% trans 'Sendbox' %}</a></div>
+{% endblock %}
+{% block main %}
+
+
+<div id="MailBoxWrap">
+	<div class="mail-wrap {% cycle odd,even %}">
+		<div class="mail-meta">
+			<div class="mail-sender">
+				<div class="sender-name">
+					<span>{% trans 'From' %} : <a href="/member/{{ mail.user.username}}">{{ mail.user.get_profile.nickname }}</a></span>
+				</div>
+				<div class="sender-protrait">
+					<a href="/member/{{ mail.user.username}}">
+						<img class="box-shadow small-protrait" src="{{mail.user.get_profile.gen_protrait}}" width="15" height="15" />
+					</a>
+				</div>
+			</div>
+			<div class="mail-datetime">{% trans 'Posted time' %} : {{ mail.created|date:"Y-m-d H:i:s"}}</div>
+			<div class="clearblank"></div>
+		</div>
+		<div class="mail-content-wrap">
+			<div class="mail-content">
+				{{ mail.content}}
+			</div>
+		</div>
+	</div>
+<div class="clearfix"></div>
+<div class="generic_delete_info">{% trans 'Are you sure you want to delete this mail ?' %}</div>
+<div class="generic_delete_control">
+	<div class="generic_delete_yes">
+		<form action="" method="post">{% csrf_token %}
+			<input type="hidden" name="post" value="yes" />
+			<input class="button orange" type="submit" value="{% trans "Yes, I'm sure" %}" />
+		</form>
+	</div>
+	<div class="generic_delete_no">
+		<form action="" method="post">{% csrf_token %}
+			<input type="hidden" name="post" value="no" />
+			<input class="button orange" type="submit" value="{% trans "No" %}" />
+		</form>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</div>
+
+
+
+{% endblock %}
