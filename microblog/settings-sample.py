@@ -1,8 +1,7 @@
 # Django settings for microblog project.
 import os
-
-
 DEBUG = True
+
 TEMPLATE_DEBUG = DEBUG
 
 
@@ -14,6 +13,7 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+
 
 DATABASES = {
     'default': {
@@ -27,7 +27,7 @@ DATABASES = {
 }
 
 # Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+# http://en.wikipedia.org/wiki/List_of_tz_zones_by_namess
 # although not all choices may be available on all operating systems.
 # On Unix systems, a value of None will cause Django to use the same
 # timezone as the operating system.
@@ -39,6 +39,13 @@ TIME_ZONE = 'Asia/Shanghai'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 #LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = 'zh-cn'
+ugettext = lambda s: s
+
+LANGUAGES = (
+    ('zh-cn', ugettext('Chinese')),
+    ('en', ugettext('English')),
+)
+
 DEFAULT_CHARSET = 'utf-8'
 
 SITE_ID = 1
@@ -83,21 +90,24 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.csrf.CsrfResponseMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    
 )
 
 
 
 AUTH_PROFILE_MODULE = 'backend.Member'
 ROOT_URLCONF = 'microblog.urls'
-LOGIN_URL = '/member/login/'
-#TEMPLATE_DIRS = ('D:/Code/Projects/project-microblog/microblog/template',)
+LOGIN_URL = '/passport/login/'
+LOGIN_REDIRECT_URL = '/'
+
+
 TEMPLATE_DIRS = ( os.path.join(SITE_ROOT, 'template'),)
 TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.i18n',
     'django.contrib.auth.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
 )
@@ -110,9 +120,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    # Uncomment the next line to enable the admin:
-     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
+    'django.contrib.admin',
     'django.contrib.admindocs',
     'microblog.backend',
+    'microblog.mail',
+    'microblog.account',
 )
