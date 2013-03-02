@@ -1,0 +1,11 @@
+{% if messages %}
+{% for message in messages %}
+<div class="alert fade in {% if message.tags %}alert-{{message.tags}}{% endif %}">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>
+            {% if message.tags %} {{ message.tags.upper }} {% endif %}:
+        </strong>
+        {{ message|safe }}
+</div>
+{% endfor %}
+{% endif %}

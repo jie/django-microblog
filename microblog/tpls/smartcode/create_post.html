@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% include 'component/messages.html' %}
+
+<form action="{% url 'create_post_view' %}" method="post">
+
+    <div class="control-group">
+        <div class="controls">
+            {{ form.slug }}
+            <span class="help-inline"></span>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            {{ form.text }}
+            <span class="help-inline"></span>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="is_publish">{{ form.is_publish.label }}</label>
+        <div class="controls">
+            {{ form.is_publish }}
+            <span class="help-inline"></span>
+        </div>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-success btn-small">Save</button>
+    </div>
+    {% csrf_token %}
+</form>
+{% endblock %}

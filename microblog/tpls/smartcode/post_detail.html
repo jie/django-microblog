@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% include 'component/messages.html' %}
+
+{{ post.text }}
+{{ post.created|date:"Y-m-d H:i:s" }}
+{{ post.changed|date:"Y-m-d H:i:s" }}
+{% endblock %}
