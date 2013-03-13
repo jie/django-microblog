@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% include '_components/messages.html' %}
+
+{{ post.text }}
+{{ post.created|date:"Y-m-d H:i:s" }}
+{{ post.changed|date:"Y-m-d H:i:s" }}
+<a href="{% url 'create_qrcode_view' post.pk %}" id="GenQRCodeImage" class='btn btn-primary btn-min'>create qrcode</a>
+{% endblock %}

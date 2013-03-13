@@ -16,5 +16,8 @@ class Profiles(models.Model):
     current_status = models.CharField(max_length=300)
     description = models.TextField()
 
+    class Meta:
+        db_table = u'mp_profile'
+
 
 admin.site.register(Profiles)

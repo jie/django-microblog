@@ -19,6 +19,17 @@ client = Client(client_id=weibo_key,
 
 
 def login_view(request):
+    ### use mock login for test
+    mock_login = request.GET.get('mock')
+    if mock_login:
+        username = request.GET.get('username')
+        password = request.GET.get('password')
+        account = authenticate(username=username, password=password)
+        login(request, account)
+        profile = Profiles.objects.get(user=account)
+        request.session['profile'] = profile
+        return redirect('settings_view')
+    ### end mock login
     next = request.GET.get("next")
     if request.user.is_authenticated():
         return redirect(next or "settings_view")
@@ -30,7 +41,7 @@ def login_view(request):
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect('home')
+    return redirect('home_view')
 
 
 def authorize_view(request):

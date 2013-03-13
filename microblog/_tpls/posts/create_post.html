@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% include '_components/messages.html' %}
+
+<div class="box corner post-box" style="text-align:center">
+    <h4>Create a Post</h4>
+    <form class="form" action="{% url 'create_post_view' %}" method="post">
+        <div class="control-group">
+            <div class="controls">
+                {{ form.slug }}
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                {{ form.text }}
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+               <button type="submit" class="btn btn-success">Save</button>   
+            </div>
+        </div>
+        {% csrf_token %}
+    </form>
+</div>
+{% endblock %}

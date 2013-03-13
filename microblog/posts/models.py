@@ -1,3 +1,4 @@
+import base64
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -23,3 +24,25 @@ class Post(models.Model):
                               max_length=2,
                               choices=RATING_CHOICES
                               )
+
+    class Meta:
+        db_table = u'mp_post'
+
+
+class QRCodeImage(models.Model):
+    post = models.ForeignKey(Post, db_column='post')
+    width = models.IntegerField()
+    height = models.IntegerField()
+    mode = models.CharField(max_length=10)
+    _data = models.TextField(db_column='data')
+
+    def set_data(self, data):
+        self._data = base64.encodestring(data)
+
+    def get_data(self):
+        return base64.decodestring(self._data)
+
+    data = property(get_data, set_data)
+
+    class Meta:
+        db_table = u'mp_qrcode'

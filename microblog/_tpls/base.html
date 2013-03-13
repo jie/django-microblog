@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="web">
+    <meta name="author" content="zhouyang">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap-responsive.min.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/style-responsive.css' %}">
+    <title></title>
+    <!-- IE Fix for HTML5 Tags -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <!-- NAVBAR
+    ================================================== -->
+    <div class="navbar-wrapper">
+      <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+      <div class="container">
+
+        <div class="navbar navbar-inverse">
+          <div class="navbar-inner">
+            <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">QRCode</a>
+            <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li class="{% url 'home_view' %}"><a href="#">Home</a></li>
+                <li><a href="{% url 'create_post_view' %}">Post</a></li>
+                <!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% if request.user.is_authenticated %}Logout{% else %}Login{% endif %} <b class="caret"></b></a>
+                  {% if request.user.is_authenticated %}
+                  <ul class="dropdown-menu">
+                    <li><a href="{% url 'logout_view' %}">logout</a></li>
+                  </ul>
+                  {% else %}
+                  <ul class="dropdown-menu">
+                    <li class="nav-header">via oAuth2</li>
+                    <li><a href="{% url 'login_view' %}">weibo</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">douban</a></li>
+                  </ul>
+                  {% endif %}
+                </li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div><!-- /.navbar-inner -->
+        </div><!-- /.navbar -->
+
+      </div> <!-- /.container -->
+    </div><!-- /.navbar-wrapper -->
+
+    <div class="container content">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <div class="container">
+      <hr class="featurette-divider">
+
+      <footer>
+        <p>&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
+    </div>
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap-transition.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap-alert.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap-modal.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap-dropdown.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap-scrollspy.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap-tab.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap-tooltip.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap-popover.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap-button.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap-collapse.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap-carousel.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap-typeahead.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap-affix.js' %}"></script>
+    <script src="{% static 'js/base.js' %}"></script>
+    <script type="text/javascript">
+    $('.dropdown-toggle').dropdown();
+    </script>
+    {% block extra_js %}
+    {% endblock %}
+</body>
+</html>

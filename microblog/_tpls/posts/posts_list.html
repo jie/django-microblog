@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{% include 'component/messages.html' %}
+{% include '_components/messages.html' %}
 
+{% for post in posts %}
 {{ post.text }}
 {{ post.created|date:"Y-m-d H:i:s" }}
 {{ post.changed|date:"Y-m-d H:i:s" }}
+{% endfor %}
+
 {% endblock %}
